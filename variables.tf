@@ -1,19 +1,19 @@
-variable project_id {
+variable "project_id" {
   description = "The ID of the project where Workload Identity Federation will be configured"
-  type = string
+  type        = string
 }
 
-variable org_id {
+variable "org_id" {
   description = "The ID of the organization where the new project will live"
-  type = string
+  type        = string
 }
 
-variable heeler_aws_iam_role {
+variable "heeler_aws_iam_role" {
   description = "The Heeler AWS IAM role."
-  type = string
+  type        = string
 }
 
-variable heeler_aws_account_id {
+variable "heeler_aws_account_id" {
   description = "The Heeler AWS Account ID."
-  type = string
+  type        = string
 }

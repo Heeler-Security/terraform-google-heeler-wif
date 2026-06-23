@@ -21,14 +21,14 @@ resource "google_iam_workload_identity_pool_provider" "heeler-wif-provider" {
   display_name                       = "Heeler Production Access"
   description                        = "AWS identity pool provider for Heeler Production"
   disabled                           = false
-  attribute_mapping                  = {
+  attribute_mapping = {
     "google.subject"        = "assertion.arn"
     "attribute.aws_account" = "assertion.account"
     "attribute.arn"         = "assertion.arn"
   }
   attribute_condition = "assertion.arn.startsWith('${var.heeler_aws_iam_role}')"
   aws {
-    account_id = ${var.heeler_aws_account_id}
+    account_id = var.heeler_aws_account_id
   }
 }
 

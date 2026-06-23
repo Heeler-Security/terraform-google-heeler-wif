@@ -34,5 +34,5 @@ resource "google_organization_iam_member" "organizationViewer" {
 resource "google_project_iam_member" "workloadIdentityUser" {
   project = var.project_id
   role    = "roles/iam.workloadIdentityUser"
-  member = "serviceAccount:${google_service_account.heeler_collector.email}"
+  member  = "serviceAccount:${google_service_account.heeler_collector.email}"
 }
