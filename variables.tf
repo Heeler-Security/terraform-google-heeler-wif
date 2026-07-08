@@ -9,8 +9,13 @@ variable "org_id" {
 }
 
 variable "heeler_aws_iam_role" {
-  description = "The Heeler AWS IAM role."
+  description = "The Heeler AWS IAM role ARN, e.g. arn:aws:iam::<account-id>:role/<role-name>. Federation matches the corresponding STS assumed-role identity."
   type        = string
+
+  validation {
+    condition     = can(regex("^arn:aws:iam::[0-9]+:role/.+$", var.heeler_aws_iam_role))
+    error_message = "heeler_aws_iam_role must be an IAM role ARN of the form arn:aws:iam::<account-id>:role/<role-name>."
+  }
 }
 
 variable "heeler_aws_account_id" {
