@@ -3,31 +3,41 @@ resource "google_service_account" "heeler_collector" {
   display_name                 = "Heeler Security Collector"
   description                  = "Service account used to collect inventory across GCP"
   create_ignore_already_exists = true
+
+  depends_on = [google_project_service.iam]
 }
 
 # Grant IAM access to the new service account at the organization level to pull inventory
 resource "google_organization_iam_member" "artifactregistryReader" {
-  org_id = var.org_id
+  org_id = local.target_org_id
   role   = "roles/artifactregistry.reader"
   member = "serviceAccount:${google_service_account.heeler_collector.email}"
+
+  depends_on = [terraform_data.target_organization]
 }
 
 resource "google_organization_iam_member" "securityReviewer" {
-  org_id = var.org_id
+  org_id = local.target_org_id
   role   = "roles/iam.securityReviewer"
   member = "serviceAccount:${google_service_account.heeler_collector.email}"
+
+  depends_on = [terraform_data.target_organization]
 }
 
 resource "google_organization_iam_member" "folderViewer" {
-  org_id = var.org_id
+  org_id = local.target_org_id
   role   = "roles/resourcemanager.folderViewer"
   member = "serviceAccount:${google_service_account.heeler_collector.email}"
+
+  depends_on = [terraform_data.target_organization]
 }
 
 resource "google_organization_iam_member" "organizationViewer" {
-  org_id = var.org_id
+  org_id = local.target_org_id
   role   = "roles/resourcemanager.organizationViewer"
   member = "serviceAccount:${google_service_account.heeler_collector.email}"
+
+  depends_on = [terraform_data.target_organization]
 }
 
 # Allow Heeler's federated AWS principal to impersonate the collector service
