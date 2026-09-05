@@ -1,0 +1,47 @@
+name: Terraform contract
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Terraform ${{ matrix.terraform }} / Google ${{ matrix.google }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - terraform: 1.7.5
+            google: 6.22.0
+          - terraform: 1.16.1
+            google: 8.1.0
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Select Google provider
+        run: sed -i 's/>= 6.22.0, < 9.0.0/=${{ matrix.google }}/' versions.tf
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v4
+        with:
+          terraform_version: ${{ matrix.terraform }}
+          terraform_wrapper: false
+
+      - name: Check formatting
+        run: terraform fmt -check -recursive
+
+      - name: Initialize
+        run: terraform init -backend=false -input=false
+
+      - name: Test contracts
+        run: terraform test -no-color
+
+      - name: Check exact API resources
+        run: ./tests/assert-api-resources.sh

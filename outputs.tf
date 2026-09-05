@@ -13,6 +13,23 @@ output "workload_identity_provider" {
   value       = google_iam_workload_identity_pool_provider.heeler-wif-provider.name
 }
 
+output "enabled_apis" {
+  description = "Sorted baseline API set enabled by this module for WIF, preflight, and core inventory collection."
+  value = sort([
+    google_project_service.artifactregistry.service,
+    google_project_service.cloudresourcemanager.service,
+    google_project_service.compute.service,
+    google_project_service.container.service,
+    google_project_service.iam.service,
+    google_project_service.iamcredentials.service,
+    google_project_service.pubsub.service,
+    google_project_service.serviceusage.service,
+    google_project_service.sqladmin.service,
+    google_project_service.storage.service,
+    google_project_service.sts.service,
+  ])
+}
+
 # Assembled external_account credential JSON, equivalent to
 # `gcloud iam workload-identity-pools create-cred-config ... --aws`. Paste this into
 # the "Workload Identity Configuration" field when adding the org/project in Heeler:
