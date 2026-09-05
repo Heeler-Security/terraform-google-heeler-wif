@@ -3,7 +3,7 @@ resource "google_project_service" "artifactregistry" {
   service            = "artifactregistry.googleapis.com"
   disable_on_destroy = false
 
-  depends_on = [google_project.heeler]
+  depends_on = [data.google_project.existing, google_project.created]
 }
 
 resource "google_project_service" "cloudresourcemanager" {
@@ -11,7 +11,7 @@ resource "google_project_service" "cloudresourcemanager" {
   service            = "cloudresourcemanager.googleapis.com"
   disable_on_destroy = false
 
-  depends_on = [google_project.heeler]
+  depends_on = [data.google_project.existing, google_project.created]
 }
 
 resource "google_project_service" "compute" {
@@ -19,7 +19,7 @@ resource "google_project_service" "compute" {
   service            = "compute.googleapis.com"
   disable_on_destroy = false
 
-  depends_on = [google_project.heeler]
+  depends_on = [data.google_project.existing, google_project.created]
 }
 
 resource "google_project_service" "container" {
@@ -27,7 +27,7 @@ resource "google_project_service" "container" {
   service            = "container.googleapis.com"
   disable_on_destroy = false
 
-  depends_on = [google_project.heeler]
+  depends_on = [data.google_project.existing, google_project.created]
 }
 
 resource "google_project_service" "iam" {
@@ -35,7 +35,7 @@ resource "google_project_service" "iam" {
   service            = "iam.googleapis.com"
   disable_on_destroy = false
 
-  depends_on = [google_project.heeler]
+  depends_on = [data.google_project.existing, google_project.created]
 }
 
 resource "google_project_service" "iamcredentials" {
@@ -43,7 +43,7 @@ resource "google_project_service" "iamcredentials" {
   service            = "iamcredentials.googleapis.com"
   disable_on_destroy = false
 
-  depends_on = [google_project.heeler]
+  depends_on = [data.google_project.existing, google_project.created]
 }
 
 resource "google_project_service" "pubsub" {
@@ -51,7 +51,7 @@ resource "google_project_service" "pubsub" {
   service            = "pubsub.googleapis.com"
   disable_on_destroy = false
 
-  depends_on = [google_project.heeler]
+  depends_on = [data.google_project.existing, google_project.created]
 }
 
 resource "google_project_service" "serviceusage" {
@@ -59,7 +59,7 @@ resource "google_project_service" "serviceusage" {
   service            = "serviceusage.googleapis.com"
   disable_on_destroy = false
 
-  depends_on = [google_project.heeler]
+  depends_on = [data.google_project.existing, google_project.created]
 }
 
 resource "google_project_service" "sqladmin" {
@@ -67,7 +67,7 @@ resource "google_project_service" "sqladmin" {
   service            = "sqladmin.googleapis.com"
   disable_on_destroy = false
 
-  depends_on = [google_project.heeler]
+  depends_on = [data.google_project.existing, google_project.created]
 }
 
 resource "google_project_service" "storage" {
@@ -75,7 +75,7 @@ resource "google_project_service" "storage" {
   service            = "storage.googleapis.com"
   disable_on_destroy = false
 
-  depends_on = [google_project.heeler]
+  depends_on = [data.google_project.existing, google_project.created]
 }
 
 resource "google_project_service" "sts" {
@@ -83,5 +83,5 @@ resource "google_project_service" "sts" {
   service            = "sts.googleapis.com"
   disable_on_destroy = false
 
-  depends_on = [google_project.heeler]
+  depends_on = [data.google_project.existing, google_project.created]
 }

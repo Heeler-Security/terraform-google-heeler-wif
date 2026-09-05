@@ -3,9 +3,30 @@ variable "project_id" {
   type        = string
 }
 
-variable "org_id" {
-  description = "The ID of the organization where the new project will live"
+variable "create_project" {
+  description = "Create and manage project_id when true. Leave false to use an existing project without managing it."
+  type        = bool
+  default     = false
+}
+
+variable "project_name" {
+  description = "Display name for a newly created project. Ignored when create_project is false."
   type        = string
+  default     = "Heeler Security"
+}
+
+variable "billing_account" {
+  description = "Billing account for a newly created project. Required when create_project is true and never managed in existing-project mode."
+  type        = string
+  default     = null
+  nullable    = true
+}
+
+variable "org_id" {
+  description = "Organization where a new project will be created. Existing-project mode derives this from the project."
+  type        = string
+  default     = null
+  nullable    = true
 }
 
 variable "heeler_aws_iam_role" {

@@ -45,3 +45,6 @@ jobs:
 
       - name: Check exact API resources
         run: ./tests/assert-api-resources.sh
+
+      - name: Check v1 upgrade idempotence
+        run: ./tests/assert-clean-upgrade-plan.sh
